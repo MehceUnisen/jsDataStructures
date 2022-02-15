@@ -4,6 +4,7 @@ class Queue {
     queueLength = 1;
     lastQueuedElement = 0;
 
+
     constructor(firstValue) {
         this.firstValue = firstValue;
         this.queue[0] = firstValue;
