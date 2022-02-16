@@ -37,12 +37,13 @@ class LinkedList {
             this.lastNodeIndex++;
 
         } else if (position === 0) {
-
+            //this will simply change the head node
             this.head = new Node(data);
             this.head.next = this.iter;
             this.lastNodeIndex++;
 
         } else if (position > 0) {
+            // adding new node in between two node
             var newNode = new Node(data);
             position -= 1;
             var prevNode = this.gotToNode(position);
@@ -63,6 +64,7 @@ class LinkedList {
             return;
         }
         if (nodeIndex > 0) {
+            // had several issues due to lack of pointer :(
             var delNode = this.gotToNode(nodeIndex);
             var prevNode = this.gotToNode(--nodeIndex);
             prevNode.next = delNode.next;
@@ -77,7 +79,7 @@ class LinkedList {
             console.log("Entered invalid index!");
             return;
         }
-
+        // simple stuff you know how it goes
         this.iter = this.head;
         for (var i = 0; i < nodeIndex; i++) {
             this.iter = this.iter.next;
@@ -91,12 +93,15 @@ class LinkedList {
             console.log(this.iter.data);
             this.iter = this.iter.next;
         }
+        // one of the node will not be printed because of the structure of loop
+        // so I have to print out manually the last node data 
         console.log(this.iter.data);
 
         this.iter = this.head;
     }
 }
 
+// testing out what I've done so far doesn't look so bad tbh 
 var ll = new LinkedList(30);
 
 ll.addNode(32)
