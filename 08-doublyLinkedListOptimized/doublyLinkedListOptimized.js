@@ -28,7 +28,7 @@ class LinkedList {
 
     addNode(data, position = -1) {
 
-        if (position >= this.lastNodeIndex) {
+        if (position > this.lastNodeIndex) {
             position = -1;
         }
 
@@ -50,10 +50,10 @@ class LinkedList {
 
         } else if (position > 0) {
             // adding new node in between two node
+
             var newNode = new Node(data);
-            var prevNode = this.goToNode(position);
-            position += 1;
             var nextNode = this.goToNode(position);
+            var prevNode = nextNode.prev;
             prevNode.next = newNode;
             newNode.next = nextNode;
             newNode.prev = prevNode;
@@ -86,17 +86,33 @@ class LinkedList {
             this.lastNodeIndex--;
 
         } else if (position > 0) {
-            // console.log(this.lastNodeIndex + " pos " + position)
-            position -= 1;
-            var prevNode = this.goToNode(position);
-            position += 2;
-            var nextNode = this.goToNode(position);
+            if ((position + 1) === this.lastNodeIndex) {
 
-            prevNode.next = nextNode;
-            nextNode.prev = prevNode;
+                position -= 2;
+                var prevNode = this.goToNode(position);
+                position += 2;
+                var nextNode = this.goToNode(position);
+
+                prevNode.next = nextNode;
+                nextNode.prev = prevNode;
+
+                this.lastNodeIndex--;
+
+            } else {
+
+                position -= 1;
+                var prevNode = this.goToNode(position);
+                position += 2;
+                var nextNode = this.goToNode(position);
+
+                prevNode.next = nextNode;
+                nextNode.prev = prevNode;
+
+                this.lastNodeIndex--;
+
+            }
 
             this.lastNodeIndex--;
-
         } else {
             console.log("Bro how TF! I left to much safety");
         }
@@ -123,7 +139,7 @@ class LinkedList {
                 this.iter = this.iter.next;
             }
         } else {
-            console.log("[1] " + legend[1]);
+            console.log("legend[1] = " + legend[1]);
         }
         this.nodeCursor = position;
         return this.iter;
@@ -136,7 +152,6 @@ class LinkedList {
         if (position <= this.lastNodeIndex) {
 
             if (position === this.nodeCursor) {
-                console.log("yaw");
                 return [0, 0];
 
             } else {
@@ -159,8 +174,6 @@ class LinkedList {
         } else if (this.distanceForward >= this.distanceBackward) {
             return [this.distanceBackward, 1];
         } else if (this.distanceForward < this.distanceBackward) {
-            console.log("back " + this.distanceBackward);
-            console.log("forw " + this.distanceForward);
             return [this.distanceForward, 2];
         }
     }
@@ -176,12 +189,3 @@ class LinkedList {
 
 
 }
-
-var ll = new LinkedList(10);
-ll.addNode(11);
-ll.addNode(12);
-ll.addNode(13);
-ll.addNode(15);
-ll.addNode(14, 3);
-ll.removeNode(0);
-ll.printLinkedList();
