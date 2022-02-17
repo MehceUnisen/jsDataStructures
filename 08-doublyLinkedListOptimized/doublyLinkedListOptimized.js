@@ -28,7 +28,7 @@ class LinkedList {
 
     addNode(data, position = -1) {
 
-        if (position > this.lastNodeIndex) {
+        if (position > this.lastNodeIndex || position === this.lastNodeIndex + 1) {
             position = -1;
         }
 
@@ -45,6 +45,7 @@ class LinkedList {
             newHead.next = this.head;
             this.head.prev = newHead;
             newHead.prev = this.goToNode(this.lastNodeIndex);
+            newHead.prev.next = newHead;
             this.head = newHead;
             this.lastNodeIndex++;
 
@@ -52,12 +53,16 @@ class LinkedList {
             // adding new node in between two node
 
             var newNode = new Node(data);
-            var nextNode = this.goToNode(position);
-            var prevNode = nextNode.prev;
+            position -= 1;
+            var prevNode = this.goToNode(position);
+            var nextNode = prevNode.next;
+
             prevNode.next = newNode;
             newNode.next = nextNode;
             newNode.prev = prevNode;
             nextNode.prev = newNode;
+
+
             this.lastNodeIndex++;
 
         } else {
@@ -79,40 +84,23 @@ class LinkedList {
             this.lastNodeIndex--;
 
         } else if (position === 0) {
-            var lastNode = this.goToNode(this.lastNodeIndex);
+            var lastNode = this.goToNode(this.lastNodeIndex - 1);
             this.head = this.head.next;
-            this.head.prev = lastNode;
+            this.head.prev = lastNode.prev;
             lastNode.next = this.head;
+
             this.lastNodeIndex--;
 
         } else if (position > 0) {
-            if ((position + 1) === this.lastNodeIndex) {
-
-                position -= 2;
-                var prevNode = this.goToNode(position);
-                position += 2;
-                var nextNode = this.goToNode(position);
-
-                prevNode.next = nextNode;
-                nextNode.prev = prevNode;
-
-                this.lastNodeIndex--;
-
-            } else {
-
-                position -= 1;
-                var prevNode = this.goToNode(position);
-                position += 2;
-                var nextNode = this.goToNode(position);
-
-                prevNode.next = nextNode;
-                nextNode.prev = prevNode;
-
-                this.lastNodeIndex--;
-
-            }
+            position -= 1;
+            var prevNode = this.goToNode(position);
+            position += 2;
+            var nextNode = this.goToNode(position);
+            prevNode.next = nextNode;
+            nextNode.prev = prevNode;
 
             this.lastNodeIndex--;
+
         } else {
             console.log("Bro how TF! I left to much safety");
         }
@@ -123,9 +111,7 @@ class LinkedList {
             console.log("Entered invalid index!");
             return;
         }
-
         var legend = this.calculateDistance(position);
-
         if (legend[1] == 0) {
             for (var i = 0; i < legend[0]; i++) {
                 this.iter = this.iter.next;
@@ -142,6 +128,7 @@ class LinkedList {
             console.log("legend[1] = " + legend[1]);
         }
         this.nodeCursor = position;
+
         return this.iter;
     }
 
@@ -151,17 +138,14 @@ class LinkedList {
         }
         if (position <= this.lastNodeIndex) {
 
-            if (position === this.nodeCursor) {
-                return [0, 0];
-
+            if (this.nodeCursor > position) {
+                this.distanceBackward = this.nodeCursor - position;
+                this.distanceForward = (this.lastNodeIndex + 1) - this.distanceBackward;
+            } else if (position > this.nodeCursor) {
+                this.distanceForward = position - this.nodeCursor;
+                this.distanceBackward = (this.lastNodeIndex + 1) - this.distanceForward;
             } else {
-                if (this.nodeCursor > position) {
-                    this.distanceForward = (this.lastNodeIndex - this.nodeCursor) + position + 1;
-                    this.distanceBackward = this.lastNodeIndex - this.distanceForward + 1;
-                } else if (position > this.nodeCursor) {
-                    this.distanceForward = position - this.nodeCursor;
-                    this.distanceBackward = this.lastNodeIndex - this.distanceForward + 1;
-                }
+                return [0, 0];
             }
         } else {
             console.log("Bro enter a valid index");
@@ -180,10 +164,11 @@ class LinkedList {
 
     printLinkedList() {
         this.iterPrint = this.head;
+        console.log(this.head.data);
         this.lastNodeIndex += 10;
         for (var i = 0; i < this.lastNodeIndex; i++) {
-            this.iterPrint = this.iterPrint.next;
             console.log(i + "th index data -> " + this.iterPrint.data);
+            this.iterPrint = this.iterPrint.next;
         }
     }
 
