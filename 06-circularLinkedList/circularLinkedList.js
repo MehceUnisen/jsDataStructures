@@ -52,9 +52,9 @@ class LinkedList {
             // adding new node in between two node
             var newNode = new Node(data);
             position -= 1;
-            var prevNode = this.gotToNode(position);
+            var prevNode = this.goToNode(position);
             position += 1;
-            var nextNode = this.gotToNode(position);
+            var nextNode = this.goToNode(position);
             prevNode.next = newNode;
             newNode.next = nextNode;
             this.lastNodeIndex++;
@@ -71,17 +71,17 @@ class LinkedList {
         }
         if (nodeIndex === this.lastNodeIndex) {
             this.lastNodeIndex -= 1;
-            var newLastNode = this.gotToNode(this.lastNodeIndex);
+            var newLastNode = this.goToNode(this.lastNodeIndex);
             // bonding new last node with the head
             newLastNode.next = this.head;
         } else if (nodeIndex > 0) {
             // this will stay the same as the normal linked lists
-            var delNode = this.gotToNode(nodeIndex);
-            var prevNode = this.gotToNode(--nodeIndex);
+            var delNode = this.goToNode(nodeIndex);
+            var prevNode = this.goToNode(--nodeIndex);
             prevNode.next = delNode.next;
             this.lastNodeIndex -= 1;
         } else if (nodeIndex === 0) {
-            var lastNode = this.gotToNode(this.lastNodeIndex);
+            var lastNode = this.goToNode(this.lastNodeIndex);
             this.head = this.head.next;
             this.iter = this.head;
             //bonding the last node with the new head
@@ -90,7 +90,7 @@ class LinkedList {
         }
     }
 
-    gotToNode(nodeIndex) {
+    goToNode(nodeIndex) {
         if (nodeIndex > this.lastNodeIndex) {
             console.log("Entered invalid index!");
             return;
