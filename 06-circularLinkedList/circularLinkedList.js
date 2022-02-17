@@ -69,14 +69,24 @@ class LinkedList {
             console.log("Entered invalid index!");
             return;
         }
-        if (nodeIndex > 0) {
-            // had several issues due to lack of pointer :(
+        if (nodeIndex === this.lastNodeIndex) {
+            this.lastNodeIndex -= 1;
+            var newLastNode = this.gotToNode(this.lastNodeIndex);
+            // bonding new last node with the head
+            newLastNode.next = this.head;
+        } else if (nodeIndex > 0) {
+            // this will stay the same as the normal linked lists
             var delNode = this.gotToNode(nodeIndex);
             var prevNode = this.gotToNode(--nodeIndex);
             prevNode.next = delNode.next;
+            this.lastNodeIndex -= 1;
         } else if (nodeIndex === 0) {
+            var lastNode = this.gotToNode(this.lastNodeIndex);
             this.head = this.head.next;
             this.iter = this.head;
+            //bonding the last node with the new head
+            lastNode.next = this.head;
+            this.lastNodeIndex -= 1;
         }
     }
 
@@ -113,7 +123,35 @@ ll.addNode(12);
 ll.addNode(13);
 ll.addNode(14);
 
+// 0th index data -> 11
+// 1th index data -> 12
+// 2th index data -> 13
+// 3th index data -> 14
+// 4th index data -> 10
+// 5th index data -> 11
+// 6th index data -> 12
+// 7th index data -> 13
+// 8th index data -> 14
+// 9th index data -> 10
+// 10th index data -> 11
+// 11th index data -> 12
+// 12th index data -> 13
+// 13th index data -> 14
 
 
 
-ll.printLinkedList();
+ll.removeNode(0);
+ll.removeNode(ll.lastNodeIndex);
+
+// 0th index data -> 12
+// 1th index data -> 13
+// 2th index data -> 11
+// 3th index data -> 12
+// 4th index data -> 13
+// 5th index data -> 11
+// 6th index data -> 12
+// 7th index data -> 13
+// 8th index data -> 11
+// 9th index data -> 12
+// 10th index data -> 13
+// 11th index data -> 11
