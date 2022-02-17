@@ -63,7 +63,10 @@ class LinkedList {
             console.log("Entered invalid index!");
             return;
         }
-        if (nodeIndex > 0) {
+        if (nodeIndex === this.lastNodeIndex) {
+            var newLastNode = this.gotToNode(--this.lastNodeIndex);
+            newLastNode.next = null;
+        } else if (nodeIndex > 0) {
             // had several issues due to lack of pointer :(
             var delNode = this.gotToNode(nodeIndex);
             var prevNode = this.gotToNode(--nodeIndex);
