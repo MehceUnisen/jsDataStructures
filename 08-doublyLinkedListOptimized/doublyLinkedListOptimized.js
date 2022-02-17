@@ -51,7 +51,6 @@ class LinkedList {
         } else if (position > 0) {
             // adding new node in between two node
             var newNode = new Node(data);
-            position -= 1;
             var prevNode = this.goToNode(position);
             position += 1;
             var nextNode = this.goToNode(position);
@@ -87,6 +86,7 @@ class LinkedList {
             this.lastNodeIndex--;
 
         } else if (position > 0) {
+            // console.log(this.lastNodeIndex + " pos " + position)
             position -= 1;
             var prevNode = this.goToNode(position);
             position += 2;
@@ -114,11 +114,11 @@ class LinkedList {
             for (var i = 0; i < legend[0]; i++) {
                 this.iter = this.iter.next;
             }
-        } else if (legend[1] === 1) {
+        } else if (legend[1] == 1) {
             for (var i = 0; i < legend[0]; i++) {
                 this.iter = this.iter.prev;
             }
-        } else if (legend[1] === 2) {
+        } else if (legend[1] == 2) {
             for (var i = 0; i < legend[0]; i++) {
                 this.iter = this.iter.next;
             }
@@ -136,6 +136,7 @@ class LinkedList {
         if (position <= this.lastNodeIndex) {
 
             if (position === this.nodeCursor) {
+                console.log("yaw");
                 return [0, 0];
 
             } else {
@@ -154,13 +155,12 @@ class LinkedList {
         if (position < this.distanceBackward && position < this.distanceForward) {
             this.nodeCursor = 0;
             this.iter = this.head;
-            console.log("a");
             return [position, 0]
-        } else if (this.distanceForward > this.distanceBackward) {
-            console.log("b");
+        } else if (this.distanceForward >= this.distanceBackward) {
             return [this.distanceBackward, 1];
         } else if (this.distanceForward < this.distanceBackward) {
-            console.log("c");
+            console.log("back " + this.distanceBackward);
+            console.log("forw " + this.distanceForward);
             return [this.distanceForward, 2];
         }
     }
@@ -182,5 +182,6 @@ ll.addNode(11);
 ll.addNode(12);
 ll.addNode(13);
 ll.addNode(15);
-ll.addNode(14, 4);
+ll.addNode(14, 3);
+ll.removeNode(0);
 ll.printLinkedList();
