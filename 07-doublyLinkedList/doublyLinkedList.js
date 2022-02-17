@@ -52,7 +52,6 @@ class LinkedList {
         } else if (position > 0) {
             // adding new node in between two node
             var newNode = new Node(data);
-            position -= 1;
             var prevNode = this.goToNode(position);
             position += 1;
             var nextNode = this.goToNode(position);
@@ -110,7 +109,6 @@ class LinkedList {
         }
         // simple stuff you know how it goes
         this.iter = this.head;
-        // this.iter = this.calculateDistance(position);
         for (var i = 0; i < position; i++) {
             this.nodeCursor++;
             this.iter = this.iter.next;
@@ -127,37 +125,13 @@ class LinkedList {
         }
     }
 
-    // I'll take care of this algorithm in mean time!
-    // calculateDistance(position) {
-    //     if (position < 0) {
-    //         return;
-    //     }
-    //     if (position <= this.lastNodeIndex) {
-    //         if (position === this.nodeCursor) {
-    //             return this.nodeCursor;
-    //         } else {
-    //             this.distanceBackward = this.nodeCursor + (this.lastNodeIndex - position);
-    //             this.distanceForward = this.nodeCursor - position;
-    //         }
-    //     } else {
-    //         console.log("Bro enter a valid index");
-    //         return;
-    //     }
-
-    //     if (this.distanceForward > this.distanceBackward) {
-    //         return this.distanceBackward;
-    //     } else {
-    //         return -this.distanceBackward;
-    //     }
-
-    // }
-
 
 }
 
 var ll = new LinkedList(10);
 ll.addNode(11);
 ll.addNode(12);
-ll.addNode(13);
+ll.addNode(14);
+ll.addNode(13, 2);
 
 ll.printLinkedList();
