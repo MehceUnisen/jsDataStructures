@@ -28,7 +28,7 @@ class LinkedList {
 
     addNode(data, position = -1) {
 
-        if (position > this.lastNodeIndex || position === this.lastNodeIndex + 1) {
+        if (position > this.lastNodeIndex) {
             position = -1;
         }
 
@@ -49,7 +49,7 @@ class LinkedList {
             this.head = newHead;
             this.lastNodeIndex++;
 
-        } else if (position > 0) {
+        } else if (position > 0 || position === this.lastNodeIndex) {
             // adding new node in between two node
 
             var newNode = new Node(data);
@@ -92,13 +92,14 @@ class LinkedList {
             this.lastNodeIndex--;
 
         } else if (position > 0) {
+            var thisNode = this.goToNode(position);
             position -= 1;
             var prevNode = this.goToNode(position);
             position += 2;
             var nextNode = this.goToNode(position);
             prevNode.next = nextNode;
             nextNode.prev = prevNode;
-
+            this.nodeCursor--;
             this.lastNodeIndex--;
 
         } else {
@@ -164,7 +165,6 @@ class LinkedList {
 
     printLinkedList() {
         this.iterPrint = this.head;
-        console.log(this.head.data);
         this.lastNodeIndex += 10;
         for (var i = 0; i < this.lastNodeIndex; i++) {
             console.log(i + "th index data -> " + this.iterPrint.data);
@@ -174,3 +174,20 @@ class LinkedList {
 
 
 }
+
+var ll = new LinkedList(10);
+ll.addNode(11);
+ll.addNode(12);
+ll.addNode(14);
+ll.addNode(13, 3);
+ll.removeNode(3);
+ll.addNode(13, 3);
+
+ll.printLinkedList();
+
+// output is
+// 0th index data -> 10
+// 1th index data -> 11
+// 2th index data -> 12
+// 3th index data -> 13
+// 4th index data -> 14
