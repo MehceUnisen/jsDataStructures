@@ -153,7 +153,7 @@ class LinkedList {
             this.iter = this.head;
             return [position, 0];
         } else if ((this.lastNodeIndex - position) < this.distanceBackward && (this.lastNodeIndex - position) < this.distanceForward) {
-            this.nodeCursor = lastNodeIndex;
+            this.nodeCursor = this.lastNodeIndex;
             this.iter = this.head.prev; //tail
             return [this.lastNodeIndex - position, 1];
         } else if (this.distanceForward >= this.distanceBackward) {
