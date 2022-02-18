@@ -121,12 +121,8 @@ class LinkedList {
             for (var i = 0; i < legend[0]; i++) {
                 this.iter = this.iter.prev;
             }
-        } else if (legend[1] == 2) {
-            for (var i = 0; i < legend[0]; i++) {
-                this.iter = this.iter.next;
-            }
         } else {
-            console.log("legend[1] = " + legend[1]);
+            console.log("legend is incorrect, legend[1] = " + legend[1]);
         }
         this.nodeCursor = position;
 
@@ -155,11 +151,15 @@ class LinkedList {
         if (position < this.distanceBackward && position < this.distanceForward) {
             this.nodeCursor = 0;
             this.iter = this.head;
-            return [position, 0]
+            return [position, 0];
+        } else if ((this.lastNodeIndex - position) < this.distanceBackward && (this.lastNodeIndex - position) < this.distanceForward) {
+            this.nodeCursor = lastNodeIndex;
+            this.iter = this.head.prev; //tail
+            return [this.lastNodeIndex - position, 1];
         } else if (this.distanceForward >= this.distanceBackward) {
             return [this.distanceBackward, 1];
         } else if (this.distanceForward < this.distanceBackward) {
-            return [this.distanceForward, 2];
+            return [this.distanceForward, 0];
         }
     }
 
