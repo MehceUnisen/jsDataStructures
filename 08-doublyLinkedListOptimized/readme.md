@@ -17,3 +17,8 @@ But for this case moving backward is more efficient, so the cursor will move bac
 
 
 There still some room for improvment, I'll be updating the code!
+
+
+Hello again!
+(Update 1)
+Added a new feature! Just like moving from head, if it's more efficient; the cursor node will simply move to the tail and reach to the operation index backwards.
