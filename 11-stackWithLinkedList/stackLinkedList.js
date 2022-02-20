@@ -19,13 +19,14 @@ class Stack {
     }
 
     pop(data) {
-        var penultNode = this.penultimateNode();
+        var penultNode = this.penultimateItem();
         penultNode.next = null;
         this.tail = penultNode;
     }
 
-    penultimateNode() {
+    penultimateItem() {
         try {
+            //this blocks covers any item but head
             this.iter = this.head;
             while (this.iter.next != this.tail) {
                 this.iter = this.iter.next;
@@ -34,12 +35,17 @@ class Stack {
             return this.iter;
 
         } catch (error) {
+            //this catch is basically for 
+            //the user might want to delete the
+            //head item. so I'm adding error handling for
+            //null reference exception
             return this.head;
         }
 
     }
 
     printStack() {
+        //basic stuff you know how it goes!
         this.iter = this.head;
         while (this.iter != null) {
             console.log(this.iter.data);
