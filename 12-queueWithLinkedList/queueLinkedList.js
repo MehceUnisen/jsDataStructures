@@ -7,22 +7,25 @@ class Item {
 
 class Queue {
     constructor(data) {
+        //keeping the tail will do a lot of favor
+        //because all the action happens at the head and tail
         this.head = new Item(data);
         this.head.next = null;
         this.tail = this.head;
     }
 
     enqueue(data) {
+        //simple stuff just add new item to tail
         this.tail.next = new Item(data);
         this.tail = this.tail.next;
         this.tail.next = null;
     }
 
     dequeue() {
-        try {
+        //much simpler stuff
+        //just change the head to the next lol
+        if (this.head != this.tail) {
             this.head = this.head.next;
-        } catch (error) {
-            console.log("You have only one item in the queue");
         }
     }
 
@@ -44,3 +47,21 @@ q.enqueue(13);
 q.enqueue(14);
 
 q.printQueue();
+
+// output
+// 10
+// 11
+// 12
+// 13
+// 14
+
+
+q.dequeue();
+q.dequeue();
+
+q.printQueue();
+
+// output
+// 12
+// 13
+// 14
